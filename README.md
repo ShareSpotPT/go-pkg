@@ -5,7 +5,7 @@ standardize golang libraries for organization level.
 ### Flow
 
 ```aidl
-[prod](main)
+[main](main)
    |__ [staging](staging)
       |__ [hotfix](hotfix-xxx)
       |__ [dev](dev)
