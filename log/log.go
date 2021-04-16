@@ -12,6 +12,7 @@ type Logger interface {
 	Warn(msg string, fields ...Field)
 	Error(msg string, fields ...Field)
 	GetGormLogger() GormLogger
+	GetGinLog() *zap.Logger
 }
 
 func ProvideLogger(mode env.Mode) (Logger, error) {

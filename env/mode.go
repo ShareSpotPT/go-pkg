@@ -21,7 +21,7 @@ func (m Mode) String() string {
 }
 
 func (m Mode) ConfigFile() string {
-	return "config/" + m.String() + ".yaml"
+	return "mode/" + m.String() + ".yaml"
 }
 
 func GetMode(s string) (Mode, error) {
