@@ -55,3 +55,7 @@ func Error(val error) Field {
 func Any(key string, val interface{}) Field {
 	return zap.Any(key, val)
 }
+
+func (s *zapLogger) GetGinLog() *zap.Logger {
+	return s.Logger.With(zap.String("router", "gin"))
+}
