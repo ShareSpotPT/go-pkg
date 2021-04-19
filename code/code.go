@@ -14,4 +14,5 @@ const (
 	Invalid
 	InvalidRevenueRate
 	InvalidRelation
+	CannotRetrievePublicData
 )
