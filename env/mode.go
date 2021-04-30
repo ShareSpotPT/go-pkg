@@ -1,38 +1,45 @@
 package env
 
 const (
-	Main Mode = iota + 1
-	Staging
-	CICD
-	Dev
+	Main    = "main"
+	Staging = "staging"
+	CICD    = "CICD"
+	Dev     = "dev"
 )
 
-const (
-	main    = "main"
-	staging = "staging"
-	cicd    = "cicd"
-	dev     = "dev"
-)
-
-type Mode uint
-
-func (m Mode) String() string {
-	return []string{"", main, staging, cicd, dev}[m]
+type Mode string
+func (m Mode) ConfigFile() string {
+	return "mode/" + string(m) + ".yaml"
 }
 
-func (m Mode) ConfigFile() string {
-	return "mode/" + m.String() + ".yaml"
+type ErrModeNotFound string
+func (e ErrModeNotFound) Error() string {
+	return "mode not found: " + string(e)
+}
+
+type ErrSecuredEnvironment string
+func (e ErrSecuredEnvironment) Error() string {
+	return "cannot drop secured environment: " + string(e)
 }
 
 func GetMode(s string) (Mode, error) {
-	m := map[string]Mode{main: Main, staging: Staging, cicd: CICD, dev: Dev}
-	res, ok := m[s]
-	if !ok {
-		return 0, ErrBadMode(s + " mode doesn't exist")
+	switch s {
+	case Main:
+		return Main, nil
+	case Staging:
+		return Staging, nil
+	case CICD:
+		return CICD, nil
+	case Dev:
+		return Dev, nil
 	}
-	return res, nil
+
+	return "",  ErrModeNotFound(s)
 }
 
+func (m Mode) String() string {
+	return string(m)
+}
 func GetModeConfigFile(s string) (string, error) {
 	m, err := GetMode(s)
 	if err != nil {
@@ -40,4 +47,3 @@ func GetModeConfigFile(s string) (string, error) {
 	}
 	return m.ConfigFile(), nil
 }
-

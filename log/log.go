@@ -78,7 +78,7 @@ func ProvideLogger(mode env.Mode) (Logger, error) {
 		return logger, nil
 
 	default:
-		return nil, env.ErrBadMode("cannot create logger, mode is invalid: " + mode.String())
+		return nil, env.ErrBadMode("cannot create logger, mode is invalid: " + mode)
 	}
 }
 
